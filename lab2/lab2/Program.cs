@@ -29,13 +29,13 @@ namespace lab2
             dynamic Dynamic = '!';
 
             Console.WriteLine("Задание №1: типы данных");
-            Console.WriteLine("введите значение переменной типа bool:");
+            Console.WriteLine("введите значение переменной типа bool(true или false):");
             Bool = Convert.ToBoolean(Console.ReadLine());
             Console.WriteLine("значение переменной bool: " + Bool);
-            Console.WriteLine("введите значение переменной типа byte:");
+            Console.WriteLine("введите значение переменной типа byte(от 0 до 255):");
             Byte = Convert.ToByte(Console.ReadLine());
             Console.WriteLine("значение переменной byte: " + Byte);
-            Console.WriteLine("введите значение переменной типа sbyte:");
+            Console.WriteLine("введите значение переменной типа sbyte(-128 до 127):");
             Sbyte = Convert.ToSByte(Console.ReadLine());
             Console.WriteLine("значение переменной sbyte: " + Sbyte);
             Console.WriteLine("введите значение переменной типа char:");
@@ -65,10 +65,11 @@ namespace lab2
             i = (int)o;//распаковка
 
             /*task1_d*/
-            Console.WriteLine("Работа с неявно типизированной переменной:");
+            Console.WriteLine("Задание №1-b: Работа с неявно типизированной переменной:");
             var q = 2;
             int g = q + 2;
             Console.WriteLine($"var q=2, ing g=q+2, g={g}");
+            Console.WriteLine();
 
             /*task1_e*/
             int? y = null;
@@ -80,9 +81,9 @@ namespace lab2
             /*task2_a*/
             Console.WriteLine("Задание №2: строки");
             string s1 = "hello";
-            Console.WriteLine("Строка 1: " + s1);
+            Console.WriteLine("Строка s1: " + s1);
             string s2 = "world";
-            Console.WriteLine("Строка 2: " + s2);
+            Console.WriteLine("Строка s2: " + s2);
             int result = String.Compare(s1, s2);
             if (result < 0)
             {
@@ -98,6 +99,7 @@ namespace lab2
             }
 
             /*task2_b*/
+            Console.WriteLine("Задание №2-b");
             string s3 = s1 + " " + s2; // результат: строка "hello world"
             Console.WriteLine("Cцепление строки 1 и строки 2: " + s3);
             string s4 = String.Concat(s3, "!!!"); // результат: строка "hello world!!!"
@@ -112,8 +114,11 @@ namespace lab2
             int X = 1;
             int Y = 2;
             string Z = $"{X}+{Y}={X + Y}";//интерполяция строк; вывод: 1+2=3
+            Console.WriteLine("Интерполяция строк: "+Z);
+            Console.WriteLine();
 
             /*task2_c*/
+            Console.WriteLine("Задание №2-с");
             Console.WriteLine("Работа с IsNullOrEmpty:");
             string empty = "";
             string nul = null;
@@ -124,9 +129,10 @@ namespace lab2
             Console.WriteLine(b1);
             Console.WriteLine(b2);
             Console.WriteLine(b3);
+            Console.WriteLine();
 
             /*task2_d*/
-            Console.WriteLine("Работа с StringBuilder");
+            Console.WriteLine("Задание №2-d: Работа с StringBuilder");
             StringBuilder sb = new StringBuilder("привет, мир");
             Console.WriteLine("Исходная строка: " + sb);
             sb.Remove(6, 5);
@@ -134,6 +140,7 @@ namespace lab2
             sb.Insert(0, "\"");
             sb.Append("\"");
             Console.WriteLine("строка после добавлоения в начало и в конец по одному символу: " + sb);
+            Console.WriteLine();
 
             /*task3_a*/
             Console.WriteLine("Задание №3: массивы");
@@ -148,6 +155,7 @@ namespace lab2
             }
 
             /*task3_b*/
+            Console.WriteLine("Задание №3-b");
             string[] mas = { "Hello", ", ", "world", "!" };
             Console.Write("Массив строк: ");
             foreach (string str in mas)
@@ -171,12 +179,13 @@ namespace lab2
             //1 2
             //3 4 5
             //6 7 8 9
+            Console.WriteLine("Задание №3-с");
             double[][] masf = new double[3][];
             masf[0] = new double[2];
             masf[1] = new double[3];
             masf[2] = new double[4];
             Console.WriteLine("Введите элементы(9 шт.): ");
-            for(int j = 0; j < masf.Length; j++)
+            for (int j = 0; j < masf.Length; j++)
             {
                 for (int k = 0; k < masf[j].Length; k++)
                 {
@@ -184,9 +193,9 @@ namespace lab2
                 }
             }
             Console.WriteLine("Ступенчатый массив:");
-            foreach(double[] row in masf)
+            foreach (double[] row in masf)
             {
-                foreach(double num in row)
+                foreach (double num in row)
                 {
                     Console.Write($"{num }\t");
                 }
@@ -197,6 +206,68 @@ namespace lab2
             var mas1 = new[] { 1, 2, 3 };
             var str2 = "123";
 
+            /*task4_a*/
+            Console.WriteLine("Задание №4: кортежи");
+            (int, string, char, string, ulong) tuple = (12, "hello", 'F', "world", 21);
+
+            /*task4_b*/
+            Console.WriteLine("Вывод кортежа целиком: " + tuple);
+            Console.WriteLine($"Выборочный вывод: {tuple.Item2} {tuple.Item4}");
+            Console.WriteLine();
+
+            /*task4_c*/
+
+
+            /*task4_d*/
+            Console.WriteLine("Задание №4-d");
+            var aa = (5, 6);
+            var bb = (5, 6);
+            Console.WriteLine($"Кортеж а={aa}, кортеж b={bb}");
+            Console.WriteLine($"a равно b: {aa == bb}");
+            Console.WriteLine($"a не равно b: {aa != bb}");
+            Console.WriteLine();
+
+            /*task5*/
+            Console.WriteLine("Задание №5");
+            int[] nums = new int[5];
+            string newstr = "";
+            Console.WriteLine("Введите пять чисел");
+            for (int j = 0; j < nums.Length; j++)
+            {
+                Console.Write("{0}-е число: ", j + 1);
+                nums[j] = Int32.Parse(Console.ReadLine());
+            }
+            Console.WriteLine("Введите строку: ");
+            newstr = Console.ReadLine();
+            Console.WriteLine($"Полученный кортеж: {fun(nums, newstr)}");
+            (int, int, int, char) fun(int[] m, string st)//функция
+            {
+                (int, int, int, char) tupl;
+                int temp;
+                int sum=0;
+                foreach(int num in m)
+                {
+                    sum += num;
+                }
+                for (int j = 0; j < m.Length - 1; j++)
+                {
+                    for (int k = i + 1; k < m.Length; k++)
+                    {
+                        if (m[j] > m[k])
+                        {
+                            temp = m[j];
+                            m[j] = m[k];
+                            m[k] = temp;
+                        }
+                    }
+                }
+                tupl.Item1 = m[4];
+                tupl.Item2 = m[0];
+                tupl.Item3 = sum;
+                tupl.Item4 = st[0];
+                return tupl;
+            }
+            Console.WriteLine();
         }
     }
 }

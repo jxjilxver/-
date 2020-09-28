@@ -97,6 +97,7 @@ namespace lab2
             {
                 Console.WriteLine("Строки s1 и s2 идентичны");
             }
+            Console.WriteLine();
 
             /*task2_b*/
             Console.WriteLine("Задание №2-b");
@@ -114,7 +115,7 @@ namespace lab2
             int X = 1;
             int Y = 2;
             string Z = $"{X}+{Y}={X + Y}";//интерполяция строк; вывод: 1+2=3
-            Console.WriteLine("Интерполяция строк: "+Z);
+            Console.WriteLine("Интерполяция строк: " + Z);
             Console.WriteLine();
 
             /*task2_c*/
@@ -137,8 +138,8 @@ namespace lab2
             Console.WriteLine("Исходная строка: " + sb);
             sb.Remove(6, 5);
             Console.WriteLine("строка после удаления 5-и символов начиная с 6-го: " + sb);
-            sb.Insert(0, "\"");
-            sb.Append("\"");
+            sb.Insert(0, "\"");//добавление в начало строки
+            sb.Append("\"");//добавление в конец строки
             Console.WriteLine("строка после добавлоения в начало и в конец по одному символу: " + sb);
             Console.WriteLine();
 
@@ -216,7 +217,7 @@ namespace lab2
             Console.WriteLine();
 
             /*task4_c*/
-
+            int item1 = tuple.Item1;//распаковка кортежа
 
             /*task4_d*/
             Console.WriteLine("Задание №4-d");
@@ -228,7 +229,7 @@ namespace lab2
             Console.WriteLine();
 
             /*task5*/
-            Console.WriteLine("Задание №5");
+            Console.WriteLine("Задание №5: Функция");
             int[] nums = new int[5];
             string newstr = "";
             Console.WriteLine("Введите пять чисел");
@@ -244,8 +245,8 @@ namespace lab2
             {
                 (int, int, int, char) tupl;
                 int temp;
-                int sum=0;
-                foreach(int num in m)
+                int sum = 0;
+                foreach (int num in m)
                 {
                     sum += num;
                 }
@@ -268,6 +269,45 @@ namespace lab2
                 return tupl;
             }
             Console.WriteLine();
+
+            /*task6*/
+            Console.WriteLine("Задание №6: Работа с checked/unchecked");
+            int CheckedMethod()
+            {
+                int z = 0;
+                int maxIntValue = 2147483647;
+                try
+                {
+                    checked
+                    {
+                        z = maxIntValue + 10;
+                    }
+                }
+                catch (System.OverflowException e)
+                {
+                    Console.WriteLine("UNCHECKED and CAUGHT:  " + e.ToString());
+                }
+                return z;
+            }
+            Console.WriteLine("\nCHECKED output value is: {0}", CheckedMethod());
+            int UncheckedMethod()
+            {
+                int z = 0;
+                int maxIntValue = 2147483647;
+                try
+                {
+                    unchecked
+                    {
+                        z = maxIntValue + 10;
+                    }
+                }
+                catch (System.OverflowException e)
+                {
+                    Console.WriteLine("UNCHECKED and CAUGHT:  " + e.ToString());
+                }
+                return z;
+            }
+            Console.WriteLine("UNCHECKED output value is: {0}", UncheckedMethod());
         }
     }
 }

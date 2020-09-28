@@ -80,9 +80,9 @@ namespace lab2
             /*task2_a*/
             Console.WriteLine("Задание №2: строки");
             string s1 = "hello";
-            Console.WriteLine("Строка 1: "+s1);
+            Console.WriteLine("Строка 1: " + s1);
             string s2 = "world";
-            Console.WriteLine("Строка 2: "+s2);
+            Console.WriteLine("Строка 2: " + s2);
             int result = String.Compare(s1, s2);
             if (result < 0)
             {
@@ -99,7 +99,7 @@ namespace lab2
 
             /*task2_b*/
             string s3 = s1 + " " + s2; // результат: строка "hello world"
-            Console.WriteLine("Cцепление строки 1 и строки 2: "+s3);
+            Console.WriteLine("Cцепление строки 1 и строки 2: " + s3);
             string s4 = String.Concat(s3, "!!!"); // результат: строка "hello world!!!"
             string[] words = s3.Split(new char[] { ' ' });//разделение строки
             char[] word = new char[10];
@@ -128,12 +128,75 @@ namespace lab2
             /*task2_d*/
             Console.WriteLine("Работа с StringBuilder");
             StringBuilder sb = new StringBuilder("привет, мир");
-            Console.WriteLine("Исходная строка: "+sb);
+            Console.WriteLine("Исходная строка: " + sb);
             sb.Remove(6, 5);
-            Console.WriteLine("строка после удаления 5-и символов начиная с 6-го: "+sb);
+            Console.WriteLine("строка после удаления 5-и символов начиная с 6-го: " + sb);
             sb.Insert(0, "\"");
             sb.Append("\"");
-            Console.WriteLine("строка после добавлоения в начало и в конец по одному символу: "+sb);
+            Console.WriteLine("строка после добавлоения в начало и в конец по одному символу: " + sb);
+
+            /*task3_a*/
+            Console.WriteLine("Задание №3: массивы");
+            int[,] mass = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+            for (int j = 0; j < 3; j++)
+            {
+                for (int k = 0; k < 3; k++)
+                {
+                    Console.Write($"{mass[j, k]}\t");//вывод матрицы
+                }
+                Console.WriteLine();
+            }
+
+            /*task3_b*/
+            string[] mas = { "Hello", ", ", "world", "!" };
+            Console.Write("Массив строк: ");
+            foreach (string str in mas)
+            {
+                Console.Write(str);
+            }
+            Console.WriteLine();
+            Console.WriteLine("Длина массива: " + mas.Length);
+            Console.WriteLine("Введите позицию, которую хотите изменить:");
+            int position = Convert.ToInt32(Console.ReadLine()) - 1;
+            Console.WriteLine("Введите строку:");
+            mas[position] = Console.ReadLine();
+            Console.WriteLine("Новый массив строк: ");
+            foreach (string str in mas)
+            {
+                Console.Write(str);
+            }
+            Console.WriteLine();
+
+            /*task3_c*/
+            //1 2
+            //3 4 5
+            //6 7 8 9
+            double[][] masf = new double[3][];
+            masf[0] = new double[2];
+            masf[1] = new double[3];
+            masf[2] = new double[4];
+            Console.WriteLine("Введите элементы(9 шт.): ");
+            for(int j = 0; j < masf.Length; j++)
+            {
+                for (int k = 0; k < masf[j].Length; k++)
+                {
+                    masf[j][k] = Convert.ToDouble(Console.ReadLine());
+                }
+            }
+            Console.WriteLine("Ступенчатый массив:");
+            foreach(double[] row in masf)
+            {
+                foreach(double num in row)
+                {
+                    Console.Write($"{num }\t");
+                }
+                Console.WriteLine();
+            }
+
+            /*task3_d*/
+            var mas1 = new[] { 1, 2, 3 };
+            var str2 = "123";
+
         }
     }
 }

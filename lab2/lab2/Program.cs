@@ -205,6 +205,7 @@ namespace lab2
 
             /*task3_d*/
             var mas1 = new[] { 1, 2, 3 };
+            var mas3 = new int[] { 1, 2, 3 };
             var str2 = "123";
 
             /*task4_a*/

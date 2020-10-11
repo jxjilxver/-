@@ -6,15 +6,80 @@ namespace lab3
     {
         public class Product
         {
-            public readonly int ID;//поле-только для чтения 
-            public string name;
-            public int UPC;
-            public const string manufacturer="Nvidia";//поле-константа 
-            public int price;
-            public string term;
-            public int quantity;
+            private readonly int ID;//поле-только для чтения 
+            public int Id
+            {
+                get
+                {
+                    return ID;
+                }
+            }
+            private string name;
+            public string Name
+            {
+                get
+                {
+                    return name;
+                }
+                set
+                {
+                    name = value;
+                }
+            }
+            private int UPC;
+            public int Upc
+            {
+                get
+                {
+                    return UPC;
+                }
+                set
+                {
+                    UPC = value;
+                }
+            }
+            public const string manufacturer = "Nvidia";//поле-константа 
+            private int price;
+            public int Price
+            {
+                get
+                {
+                    return price;
+                }
+                set
+                {
+                    price = value;
+                }
+            }
+            private string term;
+            public string Term
+            {
+                get
+                {
+                    return term;
+                }
+                set
+                {
+                    term = value;
+                }
+            }
+            private int quantity;
+            public int Quantity
+            {
+                get
+                {
+                    return quantity;
+                }
+                set
+                {
+                    quantity = value;
+                }
+            }
+            public static int count = 0;
+
             public Product()//конструктор без параметров 
             {
+                count++;
                 ID = 3;
                 name = "GeForce GTX 1050";
                 price = 145;
@@ -24,17 +89,20 @@ namespace lab3
             }
             public Product(int iID, string iName, int iUPC, int iPrice, string iTerm, int iQuantity)//конструктор с параметрами
             {
+                count++;
                 this.ID = iID;
-                this.name = iName;
-                this.UPC = iUPC;
-                this.price = iPrice;
-                this.term = iTerm;
-                this.quantity = iQuantity;
+                this.Name = iName;
+                this.Upc = iUPC;
+                this.Price = iPrice;
+                this.Term = iTerm;
+                this.Quantity = iQuantity;
             }
             public void Info()
             {
                 Console.WriteLine($"Производитель: {manufacturer}, наименование: {name}, ID: {ID}, UPC: {UPC}, срок хранения: {term}, цена: {price}$, количество: {quantity}");
             }
+
+            //private Product() { } //закрытый конструктор
         }
         static void Main(string[] args)
         {
@@ -48,7 +116,7 @@ namespace lab3
             Console.WriteLine("Продукты с наменованием GTX 1050:");
             foreach(Product prod in products)
             {
-                if(prod.name=="GTX 1050")
+                if(prod.Name=="GTX 1050")
                 {
                     prod.Info();
                 }
@@ -56,11 +124,12 @@ namespace lab3
             Console.WriteLine("Продукты, не превыщающий 150$ по стоимости:");
             foreach (Product prod in products)
             {
-                if (prod.name=="GTX 1050" && prod.price < 150)
+                if (prod.Name=="GTX 1050" && prod.Price < 150)
                 {
                     prod.Info();
                 }
             }
+            Console.WriteLine("Количество созданных объектов: " + Product.count);//используется статическое поле
         }
     }
 }

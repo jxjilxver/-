@@ -1,10 +1,9 @@
 ﻿using System;
-
 namespace lab3
 {
     class Program
     {
-        public class Product
+        public partial class Product
         {
             private readonly int ID;//поле-только для чтения 
             public int Id
@@ -75,7 +74,11 @@ namespace lab3
                     quantity = value;
                 }
             }
-            public static int count = 0;
+            public static int count = 0;//счётчик созданных объектов 
+            public static void Hello()
+            {
+                Console.WriteLine("Вызван статический метод класса Product");
+            }
 
             public Product()//конструктор без параметров 
             {
@@ -101,9 +104,24 @@ namespace lab3
             {
                 Console.WriteLine($"Производитель: {manufacturer}, наименование: {name}, ID: {ID}, UPC: {UPC}, срок хранения: {term}, цена: {price}$, количество: {quantity}");
             }
-
+            public static void RefMethod(ref int refArgument)
+            {
+                refArgument = refArgument + 44;
+            }
+            public static void OutArgExample(out int number)
+            {
+                number = 44;
+            }
             //private Product() { } //закрытый конструктор
         }
+        public partial class Product
+        {
+            public void Method()
+            {
+                Console.WriteLine("Цена продукта: "+Price);
+            }
+        }
+
         static void Main(string[] args)
         {
             Product product1 = new Product(1,"GTX 1050",124124, 150, "5 лет", 1000);
@@ -129,7 +147,13 @@ namespace lab3
                     prod.Info();
                 }
             }
+            int i=1;
+            Product.RefMethod(ref i);
+
+            int initializeInMethod;
+            Product.OutArgExample(out initializeInMethod);
             Console.WriteLine("Количество созданных объектов: " + Product.count);//используется статическое поле
+            Product.Hello();
         }
     }
 }

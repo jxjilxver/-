@@ -32,10 +32,6 @@ namespace lab3
                 {
                     return UPC;
                 }
-                set
-                {
-                    UPC = value;
-                }
             }
             public const string manufacturer = "Nvidia";//поле-константа 
             private int price;
@@ -86,7 +82,7 @@ namespace lab3
                 ID = 3;
                 name = "GeForce GTX 1050";
                 price = 145;
-                UPC = 634632;
+                UPC = base.GetHashCode();
                 quantity = 200;
                 term = "5 лет";
             }
@@ -95,7 +91,7 @@ namespace lab3
                 count++;
                 this.ID = iID;
                 this.Name = iName;
-                this.Upc = iUPC;
+                this.UPC = base.GetHashCode();
                 this.Price = iPrice;
                 this.Term = iTerm;
                 this.Quantity = iQuantity;
@@ -113,6 +109,27 @@ namespace lab3
                 number = 44;
             }
             //private Product() { } //закрытый конструктор
+            
+            public override string ToString()
+            {
+                return $"Type {base.ToString()},  Производитель: {manufacturer}, наименование: {name}, ID: {ID}, UPC: {UPC}, срок хранения: {term}, цена: {price}$, количество: {quantity}"; 
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (obj == null) return false;
+                if (obj.GetType() != this.GetType()) return false;
+                Product prod = (Product)obj;
+                return (this.name == prod.name && this.ID == prod.ID && this.UPC==prod.UPC && this.term == prod.term && this.price==prod.price && this.quantity==prod.quantity);
+            }
+
+            public override int GetHashCode()
+            { // 269 или 47 простые
+                int hash = 269;
+                hash = string.IsNullOrEmpty(Name) ? 0 : Name.GetHashCode();
+                hash = (hash * 47) + ID.GetHashCode();
+                return hash;
+            }
         }
         public partial class Product
         {

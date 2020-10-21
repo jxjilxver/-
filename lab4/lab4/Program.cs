@@ -6,11 +6,11 @@ namespace lab4
     {
         public class DoublyNode<T>
         {
+            public T Data { get; set; }
             public DoublyNode(T data)
             {
                 Data = data;
             }
-            public T Data { get; set; }
             public DoublyNode<T> Previous { get; set; }
             public DoublyNode<T> Next { get; set; }
         }
@@ -19,9 +19,9 @@ namespace lab4
         
         public class DoublyLinkedList<T>
         {
-            DoublyNode<T> head; // головной/первый элемент
-            DoublyNode<T> tail; // последний/хвостовой элемент
-            int count;  // количество элементов в списке
+            public DoublyNode<T> head; // головной/первый элемент
+            public DoublyNode<T> tail; // последний/хвостовой элемент
+            public int count;  // количество элементов в списке
 
             // добавление элемента
             public void Add(T data)
@@ -41,21 +41,61 @@ namespace lab4
 
             //---------------------------------------------------
 
-            public void AddFirst(T data)
+            public static bool operator !=(DoublyLinkedList<T> list1, DoublyLinkedList<T> list2)
             {
-                DoublyNode<T> node = new DoublyNode<T>(data);
-                DoublyNode<T> temp = head;
-                node.Next = temp;
-                head = node;
-                if (count == 0)
-                    tail = head;
-                else
-                    temp.Previous = node;
-                count++;
+                DoublyNode<T> head1 = list1.head;
+                DoublyNode<T> head2 = list2.head;
+                while (head1 != null && head2 != null)
+                {
+                    if (Equals(head1.Data, head2.Data))
+                    {
+                        head1 = head1.Next;
+                        head2 = head2.Next;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                return false;
             }
 
             //---------------------------------------------------
 
+            public static bool operator ==(DoublyLinkedList<T> list1, DoublyLinkedList<T> list2)
+            {
+                DoublyNode<T> head1 = list1.head;
+                DoublyNode<T> head2 = list2.head;
+                while (head1 != null && head2 != null)
+                {
+                    if (Equals(head1.Data,head2.Data))
+                    {
+                        head1 = head1.Next;
+                        head2 = head2.Next;
+                    }
+                    else
+                    {
+                        return false;
+                        
+                    }
+                }
+                return true;
+            }
+
+            //---------------------------------------------------
+            public static DoublyLinkedList<T> operator +(T data, DoublyLinkedList<T> DLL)
+            {
+                    DoublyNode<T> node = new DoublyNode<T>(data);
+                    DoublyNode<T> temp = DLL.head;
+                    node.Next = temp;
+                    DLL.head = node;
+                    if (DLL.count == 0)
+                        DLL.tail = DLL.head;
+                    else
+                        temp.Previous = node;
+                    DLL.count++;
+                return DLL;
+            }
             // удаление
             public bool Remove(T data)
             {
@@ -129,10 +169,29 @@ namespace lab4
 
             //---------------------------------------------------
 
-            static void Main(string[] args)
+            public void Out()
             {
-
+                DoublyNode<T> temp = head;
+                while (temp != null)
+                {
+                    Console.Write(temp.Data+" ");
+                    temp = temp.Next;
+                }
             }
+        }
+        static void Main(string[] args)
+        {
+            DoublyLinkedList<int> List1 = new DoublyLinkedList<int>();
+            List1.Add(1);
+            List1.Out();
+            Console.WriteLine();
+            List1 = 2 + List1;
+            List1.Out();
+            DoublyLinkedList<int> List2 = new DoublyLinkedList<int>();
+            List2.Add(1);
+            List2.Add(2);
+            Console.WriteLine();
+            if (List1 != List2) Console.WriteLine("Списки не равны");
         }
     }
 }

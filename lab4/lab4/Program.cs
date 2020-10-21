@@ -83,7 +83,7 @@ namespace lab4
             }
 
             //---------------------------------------------------
-            public static DoublyLinkedList<T> operator +(T data, DoublyLinkedList<T> DLL)
+            public static DoublyLinkedList<T> operator +(T data, DoublyLinkedList<T> DLL)//добавлкение в начало
             {
                     DoublyNode<T> node = new DoublyNode<T>(data);
                     DoublyNode<T> temp = DLL.head;
@@ -96,6 +96,15 @@ namespace lab4
                     DLL.count++;
                 return DLL;
             }
+
+            //---------------------------------------------------
+            public static DoublyLinkedList<T> operator --(DoublyLinkedList<T> dll)//удаление первого
+            {
+                dll.head = dll.head.Next;
+                dll.count--;
+                return dll;
+            }
+
             // удаление
             public bool Remove(T data)
             {
@@ -183,15 +192,20 @@ namespace lab4
         {
             DoublyLinkedList<int> List1 = new DoublyLinkedList<int>();
             List1.Add(1);
-            List1.Out();
-            Console.WriteLine();
             List1 = 2 + List1;
+            Console.WriteLine($"Список 1: ");
             List1.Out();
             DoublyLinkedList<int> List2 = new DoublyLinkedList<int>();
             List2.Add(1);
             List2.Add(2);
             Console.WriteLine();
+            Console.WriteLine("Список 2: ");
+            List2.Out();
+            Console.WriteLine();
             if (List1 != List2) Console.WriteLine("Списки не равны");
+            --List1;
+            Console.WriteLine("Список 1 после удаления первого элемента: ");
+            List1.Out();
         }
     }
 }

@@ -41,7 +41,7 @@ namespace lab4
 
             //---------------------------------------------------
 
-            public static bool operator !=(DoublyLinkedList<T> list1, DoublyLinkedList<T> list2)
+            public static bool operator !=(DoublyLinkedList<T> list1, DoublyLinkedList<T> list2)//проверка на неравенство 
             {
                 DoublyNode<T> head1 = list1.head;
                 DoublyNode<T> head2 = list2.head;
@@ -62,7 +62,7 @@ namespace lab4
 
             //---------------------------------------------------
 
-            public static bool operator ==(DoublyLinkedList<T> list1, DoublyLinkedList<T> list2)
+            public static bool operator ==(DoublyLinkedList<T> list1, DoublyLinkedList<T> list2)//проверка на равенство
             {
                 DoublyNode<T> head1 = list1.head;
                 DoublyNode<T> head2 = list2.head;
@@ -80,6 +80,22 @@ namespace lab4
                     }
                 }
                 return true;
+            }
+
+            //---------------------------------------------------
+
+            public static DoublyLinkedList<T> operator *(DoublyLinkedList<T> list1, DoublyLinkedList<T> list2)//объединение двух списков
+            {
+                DoublyNode<T> head = list2.head;
+                while (head != null)
+                {
+                    list1.tail.Next = head;
+                    head.Previous = list1.tail;
+                    list1.tail=head;
+                    list1.count++;
+                    head = head.Next;
+                }
+                return list1;
             }
 
             //---------------------------------------------------
@@ -205,6 +221,10 @@ namespace lab4
             if (List1 != List2) Console.WriteLine("Списки не равны");
             --List1;
             Console.WriteLine("Список 1 после удаления первого элемента: ");
+            List1.Out();
+            Console.WriteLine();
+            List1 = List1 * List2;
+            Console.WriteLine("Объединение двух списков");
             List1.Out();
         }
     }

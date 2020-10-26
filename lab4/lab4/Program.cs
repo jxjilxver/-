@@ -86,16 +86,20 @@ namespace lab4
 
             public static DoublyLinkedList<T> operator *(DoublyLinkedList<T> list1, DoublyLinkedList<T> list2)//объединение двух списков
             {
-                DoublyNode<T> head = list2.head;
-                while (head != null)
+                DoublyNode<T> head1 = list1.head;
+                DoublyNode<T> head2 = list2.head;
+                DoublyLinkedList<T> list3 = new DoublyLinkedList<T>();
+                while (head1 != null)
                 {
-                    list1.tail.Next = head;
-                    head.Previous = list1.tail;
-                    list1.tail=head;
-                    list1.count++;
-                    head = head.Next;
+                    list3.Add(head1.Data);
+                    head1 = head1.Next;
                 }
-                return list1;
+                while (head2 != null)
+                {
+                    list3.Add(head2.Data);
+                    head2 = head2.Next;
+                }
+                return list3;
             }
 
             //---------------------------------------------------
@@ -203,6 +207,27 @@ namespace lab4
                     temp = temp.Next;
                 }
             }
+
+            public class Owner
+            {
+                int ID;
+                public int Id
+                {
+                    get
+                    {
+                        return ID;
+                    }
+                    set
+                    {
+                        ID = value;
+                    }
+                }
+                string name;
+                public string Name { get; set; }
+                string company;
+                public string Company { get; set; }
+            }
+
         }
         static void Main(string[] args)
         {
@@ -223,9 +248,11 @@ namespace lab4
             Console.WriteLine("Список 1 после удаления первого элемента: ");
             List1.Out();
             Console.WriteLine();
-            List1 = List1 * List2;
+            DoublyLinkedList<int> List3 = new DoublyLinkedList<int>();
+            List3 =List1*List2;
             Console.WriteLine("Объединение двух списков");
-            List1.Out();
+            List3.Out();
+            DoublyLinkedList<int>.Owner owner = new DoublyLinkedList<int>.Owner();
         }
     }
 }

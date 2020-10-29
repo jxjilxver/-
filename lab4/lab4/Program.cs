@@ -2,8 +2,6 @@
 
 namespace lab4
 {
-    class Program
-    {
         public class DoublyNode<T>
         {
             public T Data { get; set; }
@@ -15,7 +13,7 @@ namespace lab4
             public DoublyNode<T> Next { get; set; }
         }
 
-//--------------------------------------------------------------------------
+        //--------------------------------------------------------------------------
         
         public class DoublyLinkedList<T>
         {
@@ -198,7 +196,7 @@ namespace lab4
 
             //---------------------------------------------------
 
-            public void Out()
+            public void Out()//вывод всех элементов списка
             {
                 DoublyNode<T> temp = head;
                 while (temp != null)
@@ -228,7 +226,89 @@ namespace lab4
                 public string Company { get; set; }
             }
 
+            public class Date
+            {
+                string date;
+                public string String { get; set; }
+            }
+
         }
+        public static class StatisticOperation
+        {
+            public static int Sum(DoublyLinkedList<int> list)//сумма всех элементов списка
+            {
+                int sum = 0;
+                DoublyNode<int> head = list.head;
+                for (int i = 0; i < list.count; i++)
+                {
+                    sum += head.Data;
+                    head = head.Next;
+                }
+                return sum;
+            }
+
+            public static int Difference(DoublyLinkedList<int> list)//разница между максимальным и минимальным
+            {
+                int difference=0;
+                int max = Int32.MinValue;
+                int min = Int32.MaxValue;
+                DoublyNode<int> head = list.head;
+                while (head != null)
+                {
+                    if (head.Data > max) max = head.Data;
+                    head = head.Next;
+                }
+                head = list.head;
+                while (head != null)
+                {
+                    if (head.Data < min) min = head.Data;
+                    head = head.Next;
+                }
+                difference = max - min;
+                return difference;
+            }
+
+            public static int Count(DoublyLinkedList<int> list)//кол-во элементов в списке
+            {
+                int count=0;
+                DoublyNode<int> head = list.head;
+                while (head != null)
+                {
+                    count++;
+                    head = head.Next;
+                }
+                return count;
+            }
+
+            public static int CountUpper(this string str)//подсчёт заглавных букв в строке
+            {
+                int count = 0;
+                foreach (char letter in str)
+                {
+                    if (Char.IsUpper(letter)) count++;
+                }
+                return count;
+            }
+
+        public static bool IsPereat(this DoublyLinkedList<int> list)//проверка на повторяющиеся элементы
+        {
+            DoublyNode<int> head = list.head;
+            DoublyNode<int> head1 = head;
+            while (head != null)
+            {
+                while (head1 != null)
+                {
+                    if (head1.Data == head.Data && head1 != head) return true;
+                    head1 = head1.Next;
+                }
+                head = head.Next;
+            }
+            return false;
+        }
+    }
+
+    class Program
+    {
         static void Main(string[] args)
         {
             DoublyLinkedList<int> List1 = new DoublyLinkedList<int>();
@@ -249,10 +329,21 @@ namespace lab4
             List1.Out();
             Console.WriteLine();
             DoublyLinkedList<int> List3 = new DoublyLinkedList<int>();
-            List3 =List1*List2;
+            List3 = List1 * List2;
             Console.WriteLine("Объединение двух списков");
             List3.Out();
             DoublyLinkedList<int>.Owner owner = new DoublyLinkedList<int>.Owner();
+            DoublyLinkedList<int>.Date date = new DoublyLinkedList<int>.Date();
+            Console.WriteLine();
+            Console.WriteLine($"Сумма элементов третьего списка: {StatisticOperation.Sum(List3)}");
+            Console.WriteLine($"Разница между максимальным и минимальным элементом в 3-м списке: {StatisticOperation.Difference(List3)}");
+            Console.WriteLine($"Кол-во элементов списка №3: {StatisticOperation.Count(List3)}");
+            string str = "СтРоКа";
+            Console.WriteLine($"В строке '{str}' {str.CountUpper()} заглавных букв");
+            if (List2.IsPereat()) Console.WriteLine("В списке List2 есть повторяющиеся элементы");
+            else Console.WriteLine("В списке List2 нет повторяющихся элементов");
+            if (List3.IsPereat()) Console.WriteLine("В списке List3 есть повторяющиеся элементы");
+            else Console.WriteLine("В списке List3 нет повторяющихся элементов");
         }
     }
 }

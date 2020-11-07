@@ -95,6 +95,11 @@ namespace lab5
         {
             this.price = price;
         }
+        public override string ToString() // переопределение с выводом доп инфы
+        {
+            Console.WriteLine(Owner+" "+price);
+            return " type " + base.ToString();
+        }
     }
     sealed public class Engine : Car
     {
@@ -114,6 +119,11 @@ namespace lab5
         {
             this.volume = volume;
         }
+        public override string ToString() // переопределение с выводом доп инфы
+        {
+            Console.WriteLine(Owner + " " + volume);
+            return " type " + base.ToString();
+        }
     }
     class Van : Train
     {
@@ -132,6 +142,11 @@ namespace lab5
         public Van(string owner, int number ) : base(owner)
         {
             this.number = number;
+        }
+        public override string ToString() // переопределение с выводом доп инфы
+        {
+            Console.WriteLine(Owner + " " + number);
+            return " type " + base.ToString();
         }
     }
     public class ForObject : Object
@@ -157,7 +172,20 @@ namespace lab5
     { 
         static void Main(string[] args)
         {
-            
+            Train train1 = new Train("БелЖД");
+            Car car1 = new Car("Вася");
+            Van van1 = new Van("train1", 1);
+            Engine engine1 = new Engine("car1", 20);
+            Express express1 = new Express("БелЖД", 12);
+            train1.Clone();//метод абстрактного класса
+            ((IClone)train1).Clone();//метод интерфейса 
+            Printer printer = new Printer();
+            Vehicle[] vehmass = new Vehicle[] { train1, car1, van1, engine1, express1 };
+            foreach(Vehicle vehicle in vehmass)
+            {
+                printer.IAmPrinting(vehicle);
+                Console.WriteLine("-------------------------");
+            }
         }
     }
 }

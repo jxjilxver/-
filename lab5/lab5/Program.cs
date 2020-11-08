@@ -178,7 +178,11 @@ namespace lab5
             Engine engine1 = new Engine("car1", 20);
             Express express1 = new Express("БелЖД", 12);
             train1.Clone();//метод абстрактного класса
-            ((IClone)train1).Clone();//метод интерфейса 
+            ((IClone)train1).Clone();//метод интерфейса
+            Console.WriteLine("train1 is Train: " + (train1 is Train));
+            Console.WriteLine("car1 is Car: " + (car1 is Car));
+            Console.WriteLine("express1 is Train: " + (express1 is Train));
+            Console.WriteLine("express1 is Car: " + (express1 is Car));
             Printer printer = new Printer();
             Vehicle[] vehmass = new Vehicle[] { train1, car1, van1, engine1, express1 };
             foreach(Vehicle vehicle in vehmass)
@@ -186,6 +190,7 @@ namespace lab5
                 printer.IAmPrinting(vehicle);
                 Console.WriteLine("-------------------------");
             }
+            Train express2 = express1 as Train;
         }
     }
 }

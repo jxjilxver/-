@@ -196,6 +196,10 @@ namespace lab7
         private int minutes;
         private int seconds;
     }
+    enum Tear
+    {
+        Summer=1, Autumn, Winter, Spring
+    }
     enum MathOperation { Add, Subtract, Multiply, Divide }
 
     class Program

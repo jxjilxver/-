@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace lab6
+using System.Text;
+
+namespace lab12
 {
     interface IClone
     {
@@ -138,7 +140,7 @@ namespace lab6
                 volume = value;
             }
         }
-        public Engine(string name, string owner,int price, int volume, int speed, int expenditure) : base(name, owner, price, speed, expenditure)
+        public Engine(string name, string owner, int price, int volume, int speed, int expenditure) : base(name, owner, price, speed, expenditure)
         {
             this.volume = volume;
         }
@@ -162,7 +164,7 @@ namespace lab6
                 capacity = value;
             }
         }
-        public Van(string name, string owner,int price, int capacity) : base(name, owner, price)
+        public Van(string name, string owner, int price, int capacity) : base(name, owner, price)
         {
             this.capacity = capacity;
         }
@@ -170,79 +172,6 @@ namespace lab6
         {
             Console.WriteLine($"Имя: {Name}, владелец: {Owner}, стоимость: {Price}$, вместимость: {Capacity} человек");
             return " type " + base.GetType();
-        }
-    }
-    public class ForObject : Object
-    {
-        public override bool Equals(object obj)
-        {
-            if (obj == null) return false;
-
-            if (this.GetType() != obj.GetType()) return false;
-            return true; ;
-        }
-    }
-
-    public class Printer
-    {
-        public void IAmPrinting(Vehicle vehicle)
-        {
-            Console.WriteLine(vehicle.ToString());
-        }
-    }
-
-    struct Time
-    {
-        int minutes;
-        int seconds;
-    }
-    enum MathOperation { Add=1, Subtract, Multiply, Divide }
-
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Train train1 = new Train("train1", "БелЖД", 500000);
-            Car car1 = new Car("car1", "Вася", 12000, 220, 10);
-            Car car2 = new Car("car2", "Гоша", 20000, 240, 13);
-            Van van1 = new Van("van1", "train1", 35000, 70);
-            Engine engine1 = new Engine("engine1", "car1", 300, 20, 220, 10);
-            Express express1 = new Express("express1", "БелЖД", 35000, 170);
-            train1.Clone();//метод абстрактного класса
-            ((IClone)train1).Clone();//метод интерфейса
-            Console.WriteLine("train1 is Train: " + (train1 is Train));
-            Console.WriteLine("car1 is Car: " + (car1 is Car));
-            Console.WriteLine("express1 is Train: " + (express1 is Train));
-            Console.WriteLine("express1 is Car: " + (express1 is Car));
-            Printer printer = new Printer();
-            Vehicle[] vehmass = new Vehicle[] { train1, car1, van1, engine1, express1 };
-            foreach (Vehicle vehicle in vehmass)
-            {
-                printer.IAmPrinting(vehicle);
-                Console.WriteLine("-------------------------");
-            }
-            Train express2 = express1 as Train;
-
-            Agency.Add(train1);
-            Agency.Add(car2);
-            Agency.Add(car1);
-            Agency.Add(van1);
-            Agency.Add(express1);
-            Agency.Add(engine1);
-            Agency.ShowList();
-            Agency.Remove(engine1);
-            List<Vehicle> car = Controller.SortByExpenditure(Agency.AllVehicles);
-            Console.WriteLine("Отсортированный список машин по расходу топлива: ");
-            foreach (Vehicle veh in car)
-            {
-                Console.WriteLine("type: " + veh.GetType());
-                veh.ToString();
-                Console.WriteLine("-------------------------");
-            }
-            Console.WriteLine();
-            Console.WriteLine("Стоимость всех ТС: "+Controller.FullPrice(Agency.AllVehicles)+"$");
-            Console.WriteLine();
-            Controller.SpeedInRange(Agency.AllVehicles);
         }
     }
 }

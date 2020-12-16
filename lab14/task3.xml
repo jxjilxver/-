@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Trains>
+    <train name="train1">
+        <owner>БелЖД</owner>    
+        <price>1257621</price>
+    </train>
+    <train name="train2">
+        <owner>БелЖД</owner>
+        <price>24141414</price>
+    </train>
+</Trains>

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Diagnostics;
 namespace lab7
 {
     interface IClone
@@ -202,10 +204,135 @@ namespace lab7
     }
     enum MathOperation { Add, Subtract, Multiply, Divide }
 
+    class PersonException : ArgumentException
+    {
+        public int Value { get; }
+        public PersonException(string message, int val)
+            : base(message)
+        {
+            Value = val;
+        }
+    }
+
+    class Person
+    {
+        public string Name { get; set; }
+        private int age;
+        public int Age
+        {
+            get { return age; }
+            set
+            {
+                if (value < 18)
+                    throw new PersonException("Лицам до 18 регистрация запрещена", value);
+                else
+                    age = value;
+            }
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
+            try
+            {
+                Person p = new Person { Name = "Tom", Age = 13 };
+            }
+            catch (PersonException ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
+                Console.WriteLine($"Некорректное значение: {ex.Value}");
+            }
+            Console.Read();
+            //int[] aa = null; Debug.Assert(aa != null, "Values array cannot be null");
+            try//первое исключение
+            {
+                int x = 5;
+                int y = x / 0;
+                Console.WriteLine($"Результат: {y}");
+            }
+            catch
+            {
+                Console.WriteLine("Попытка деления на ноль!");
+            }
+            finally
+            {
+                Console.WriteLine("Нажмите любую клавишу для продолжения работы...");
+            }
+            Console.Read();
+            try//второе исключение
+            {
+                Console.Write("Введите строку: ");
+                string message = Console.ReadLine();
+                if (message.Length > 8)
+                {
+                    throw new Exception("Длина строки больше 8 символов");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Ошибка: {e.Message}");
+            }
+            finally
+            {
+                Console.WriteLine("Нажмите любую клавишу для продолжения работы...");
+            }
+            Console.Read();
+            int value = 50;
+            int divisor = 0;
+            int calculated;
+
+            try//третье исключение
+            {
+                calculated = value / divisor;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Сообщение:    {0}\n", ex.Message);
+                Console.WriteLine("Источник:     {0}\n", ex.Source);
+                Console.WriteLine("Метод: {0}\n", ex.TargetSite.Name);
+                Console.WriteLine("StackTrace: {0}\n", ex.StackTrace);
+
+                calculated = int.MaxValue;
+                Console.WriteLine("Result = {0}", calculated);
+            }
+            finally
+            {
+                Console.WriteLine("Нажмите любую клавишу для продолжения работы...");
+            }
+            Console.Read();
+            try//четвёртое исключение
+            {
+                Console.Write("Введите строку: ");
+                string message = Console.ReadLine();
+                if (message.Length > 6)
+                {
+                    throw new Exception("Длина строки больше 6 символов");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Ошибка: {e.Message}");
+            }
+            finally
+            {
+                Console.WriteLine("Нажмите любую клавишу для продолжения работы...");
+            }
+            Console.Read();
+            try//пятое исключение
+            {
+                FileStream file = File.Open(@"C:\Somedir\Somefile.txt", FileMode.Open);
+            }
+            catch
+            {
+                Console.WriteLine("Ошибка: файла с таки именем не существует");
+            }
+            finally
+            {
+                Console.WriteLine("Нажмите любую клавишу для продолжения работы...");
+            }
+            Console.Read();
             Train train1 = new Train("train1", "БелЖД", 500000);
             Car car1 = new Car("car1", "Вася", 12000, 220, 10);
             Car car2 = new Car("car2", "Гоша", 20000, 240, 13);

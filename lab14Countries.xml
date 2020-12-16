@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<countries>
+  <country number="1">
+    <name>Belarus</name>
+    <square>207 595 км²</square>
+    <population>9.508 million</population>
+  </country>
+  <country number="2">
+    <name>Russia</name>
+    <square>17 100 000 км²</square>
+    <population>144,5 million</population>
+  </country>
+</countries>
